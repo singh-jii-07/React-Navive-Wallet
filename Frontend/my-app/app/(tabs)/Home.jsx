@@ -42,7 +42,6 @@ const Home = () => {
 
       Alert.alert('Success', response.data.message);
 
-      // Clear input fields
       setUserId('');
       setTitle('');
       setAmount('');
@@ -58,15 +57,15 @@ const Home = () => {
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
-      {/* Summary Section on top */}
+      {/* Summary Section */}
       <View style={styles.summaryContainer}>
         <Text style={styles.summaryTitle}>Home Summary</Text>
-        <View style={styles.summaryRow}>
-          <Text style={styles.expensesText}>Total Expenses:</Text>
+        <View style={styles.summaryBox}>
+          <Text style={styles.expensesText}>Total Expenses</Text>
           <Text style={styles.expensesValue}>₹{totalExpenses.toFixed(2)}</Text>
         </View>
-        <View style={styles.summaryRow}>
-          <Text style={styles.balanceText}>Total Balance:</Text>
+        <View style={[styles.summaryBox, { backgroundColor: '#dff9f0' }]}>
+          <Text style={styles.balanceText}>Total Balance</Text>
           <Text style={styles.balanceValue}>₹{totalBalance.toFixed(2)}</Text>
         </View>
       </View>
@@ -74,7 +73,6 @@ const Home = () => {
       {/* Transaction Form */}
       <View style={styles.formContainer}>
         <Text style={styles.formTitle}>Add Transaction</Text>
-
         <TextInput
           style={styles.input}
           placeholder="User ID"
@@ -100,7 +98,6 @@ const Home = () => {
           value={category}
           onChangeText={setCategory}
         />
-
         <TouchableOpacity style={styles.button} onPress={handleAddTransaction}>
           <Text style={styles.buttonText}>Add Transaction</Text>
         </TouchableOpacity>
@@ -115,19 +112,19 @@ const styles = StyleSheet.create({
   container: {
     flexGrow: 1,
     padding: 20,
-    backgroundColor: '#f5f6fa',
+    backgroundColor: '#f2f3f7',
     alignItems: 'center',
     justifyContent: 'flex-start',
   },
   summaryContainer: {
     width: '100%',
     padding: 20,
-    borderRadius: 12,
+    borderRadius: 16,
     backgroundColor: '#fff',
     marginBottom: 30,
     shadowColor: '#000',
     shadowOpacity: 0.1,
-    shadowRadius: 10,
+    shadowRadius: 12,
     elevation: 5,
   },
   summaryTitle: {
@@ -137,39 +134,43 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     color: '#2f3640',
   },
-  summaryRow: {
+  summaryBox: {
+    backgroundColor: '#ffecec',
+    padding: 15,
+    borderRadius: 12,
+    marginVertical: 8,
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginVertical: 5,
+    alignItems: 'center',
   },
   expensesText: {
-    fontSize: 18,
-    color: 'red',
+    fontSize: 16,
+    color: '#e84118',
     fontWeight: '600',
   },
   expensesValue: {
-    fontSize: 18,
-    color: 'red',
+    fontSize: 16,
+    color: '#e84118',
     fontWeight: '600',
   },
   balanceText: {
-    fontSize: 18,
-    color: 'green',
+    fontSize: 16,
+    color: '#27ae60',
     fontWeight: '600',
   },
   balanceValue: {
-    fontSize: 18,
-    color: 'green',
+    fontSize: 16,
+    color: '#27ae60',
     fontWeight: '600',
   },
   formContainer: {
     width: '100%',
     padding: 20,
-    borderRadius: 12,
+    borderRadius: 16,
     backgroundColor: '#fff',
     shadowColor: '#000',
     shadowOpacity: 0.1,
-    shadowRadius: 10,
+    shadowRadius: 12,
     elevation: 5,
   },
   formTitle: {
@@ -183,15 +184,16 @@ const styles = StyleSheet.create({
     width: '100%',
     borderWidth: 1,
     borderColor: '#dcdde1',
-    padding: 12,
-    borderRadius: 8,
+    padding: 14,
+    borderRadius: 12,
     marginBottom: 15,
-    backgroundColor: '#f1f2f6',
+    backgroundColor: '#f7f8fa',
+    fontSize: 16,
   },
   button: {
     backgroundColor: '#27ae60',
-    paddingVertical: 14,
-    borderRadius: 8,
+    paddingVertical: 16,
+    borderRadius: 12,
     marginTop: 10,
   },
   buttonText: {
