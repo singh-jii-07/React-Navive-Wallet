@@ -47,3 +47,59 @@ export const getAllTransactions = async (req, res) => {
     });
   }
 };
+export const getTransactionsByUser = async (req, res) => {
+  try {
+    const { user_id } = req.params;
+
+    if (!user_id) {
+      return res.status(400).json({ message: "User ID is required" });
+    }
+
+    const transactions = await sql`
+      SELECT * FROM transactions WHERE user_id = ${user_id}
+    `;
+
+    if (transactions.length === 0) {
+      return res.status(404).json({ message: "No transactions found for this user" });
+    }
+
+    res.status(200).json({
+      message: "User transactions fetched successfully",
+      transactions,
+    });
+  } catch (error) {
+    res.status(500).json({
+      message: "Error fetching user transactions",
+      error: error.message,
+    });
+  }
+};
+
+
+export const deleteTransaction = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    if (!id) {
+      return res.status(400).json({ message: "Transaction ID is required" });
+    }
+
+    const deleted = await sql`
+      DELETE FROM transactions WHERE id = ${id} RETURNING *
+    `;
+
+    if (deleted.length === 0) {
+      return res.status(404).json({ message: "Transaction not found" });
+    }
+
+    res.status(200).json({
+      message: "Transaction deleted successfully",
+      deletedTransaction: deleted[0],
+    });
+  } catch (error) {
+    res.status(500).json({
+      message: "Error deleting transaction",
+      error: error.message,
+    });
+  }
+};
