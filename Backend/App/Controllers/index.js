@@ -103,3 +103,28 @@ export const deleteTransaction = async (req, res) => {
     });
   }
 };
+export const getSummary = async (req, res) => {
+  try {
+    const transactions = await sql`SELECT * FROM transactions`;
+
+    let totalExpenses = 0;
+    let totalBalance = 0;
+
+    transactions.forEach(txn => {
+      if (txn.category.toLowerCase() === "expensive") {
+        totalExpenses += parseFloat(txn.amount);
+        totalBalance -= parseFloat(txn.amount);
+      } else {
+        totalBalance += parseFloat(txn.amount);
+      }
+    });
+
+    res.status(200).json({
+      totalExpenses,
+      totalBalance,
+    });
+  } catch (error) {
+    console.error("Error fetching summary:", error);
+    res.status(500).json({ message: "Error fetching summary", error: error.message });
+  }
+};
