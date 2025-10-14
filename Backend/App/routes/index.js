@@ -10,10 +10,10 @@ const router = express.Router();
 
 router.post("/add", addData);
 
-router.get("/transactions", getAllTransactions);
+router.get("/get", getAllTransactions);
 
-router.get("/transactions/:user_id", getTransactionsByUser);
+router.get("/getone/:user_id", getTransactionsByUser);
 
-router.delete("/transactions/:id", deleteTransaction);
+router.delete("/delete/:id", deleteTransaction);
 
 export default router;
