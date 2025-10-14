@@ -1,9 +1,12 @@
-import { Link } from "expo-router";
-import { Text, View } from "react-native";
-import Home from './Home'
+import { useEffect } from "react";
+import { useRouter } from "expo-router";
+
 export default function Index() {
-  return (
-    <View >
-    </View>
-  );
+  const router = useRouter();
+
+  useEffect(() => {
+    router.replace("/(tabs)/Home"); 
+  }, []);
+
+  return null;
 }
